@@ -5,6 +5,7 @@ import { Home } from "@/components/flow/Home";
 import { Opportunity } from "@/components/flow/Opportunity";
 import { Execution } from "@/components/flow/Execution";
 import { Results } from "@/components/flow/Results";
+import { SecondExecution } from "@/components/flow/SecondExecution";
 import type { Step } from "@/components/flow/types";
 
 export const Route = createFileRoute("/")({
@@ -75,7 +76,11 @@ function Index() {
           onRestart={() => {
             setStep("home");
           }}
+          onGo={() => setStep("secondExecution")}
         />
+      )}
+      {step === "secondExecution" && (
+        <SecondExecution onRestart={() => setStep("home")} />
       )}
     </main>
   );
