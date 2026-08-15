@@ -30,9 +30,17 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [step, setStep] = useState<Step>("home");
+  const [step, setStep] = useState<Step>("intro");
   const [premiumPreference, setPremiumPreference] = useState(false);
   const [remembered, setRemembered] = useState(false);
+
+  if (step === "intro") {
+    return (
+      <main className="min-h-screen">
+        <Intro onEnter={() => setStep("home")} />
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen">
