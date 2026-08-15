@@ -1,200 +1,82 @@
 # Revenue Bloom
 
-Build a polished working prototype of a new MadeThis product capability.
+### Find the opportunities your business already lost — and win them back.
 
-THE HUMAN PROBLEM
+Revenue Bloom is a self-improving GTM agent built for MadeThis.
 
-Business owners spend enormous time and money finding new customers while revenue opportunities they have already created quietly disappear inside their business.
+Instead of helping a business find more leads, it starts with a different question:
 
-This product continuously looks across a company's existing business data, finds revenue opportunities the business is missing, recommends the best action to capture them, gets permission when appropriate, executes or simulates the action, measures the outcome, learns from the owner's feedback and results, and uses that learning to improve its next action.
+**What opportunities are already hiding inside this business?**
 
-CORE PROMISE
+Revenue Bloom continuously looks across existing business signals, identifies missed revenue opportunities, recommends the next best action, helps execute it, measures what happens, learns from the result, and goes looking for the next opportunity.
 
-Find the money your business is leaving behind.
+## The idea
 
-IMPORTANT:
+Businesses spend enormous amounts of time and money finding new customers while revenue they've already created quietly disappears.
 
-This should NOT feel like another analytics dashboard.
+An estimate that never got followed up.
 
-The product should feel remarkably simple.
+A past customer ready to return.
 
-The user should understand its value within 5–10 seconds.
+An abandoned purchase.
 
-Use a fictional premium home-services company as the demo business.
+A customer ready for an upgrade.
 
-HOME SCREEN
+Revenue Bloom finds those opportunities and turns them into action.
 
-Welcome the owner and immediately show:
+**FIND → RECOMMEND → APPROVE → ACT → MEASURE → LEARN → REPEAT**
 
-“We found $18,420.”
+## The demo
 
-Subhead:
+Our prototype follows Northgate HVAC, a fictional premium home-services company.
 
-“Potential revenue hiding inside your business.”
+Revenue Bloom discovers **$18,420 in potential revenue** already hiding inside the business.
 
-Show four opportunities:
+It identifies multiple opportunities and recommends starting with 11 forgotten estimates worth $7,200.
 
-$7,200
+But it doesn't just surface the opportunity.
 
-11 estimates never followed up
+It recommends which customers to contact first, explains why they were selected, estimates the potential return, and proposes an offer.
 
-$4,850
+The owner can approve the recommendation, change it, or skip it.
 
-23 customers ready to return
+## The self-improving loop
 
-$3,970
+In our demo, Revenue Bloom initially recommends a discount.
 
-Abandoned purchases
+The owner rejects that approach and tells the agent to protect the company's premium positioning.
 
-$2,400
+Revenue Bloom changes the offer to complimentary priority scheduling and asks whether it should remember that preference.
 
-Customers ready for an upgrade
+The owner says yes.
 
-Primary CTA:
+The agent then uses that learning in its next recommendation — replacing discounting with a premium service benefit.
 
-“Show me the money”
+**The feedback doesn't just get stored. It changes what the agent does next.**
 
-CORE DEMO FLOW
+## Human control + autonomy
 
-Clicking the $7,200 opportunity opens:
+Revenue Bloom is designed to act with permission, not around it.
 
-“$7,200 sitting in 11 forgotten estimates.”
+The prototype demonstrates:
 
-Explain simply that these customers requested pricing but never received meaningful follow-up.
+- A clear recommended action
+- The evidence behind the recommendation
+- Expected business impact
+- Owner approval, editing, or rejection
+- Persistent preference learning
+- Simulated execution
+- Observable results
+- A next action informed by what the agent learned
 
-Recommend:
+Higher-risk or irreversible actions can remain approval-gated while routine actions can eventually operate within owner-defined guardrails.
 
-“Contact the 5 customers most likely to close today.”
+## Why MadeThis
 
-Show:
+Most AI GTM tools help businesses generate more.
 
-Expected return: $2,800–$4,600
+More leads. More emails. More campaigns. More content.
 
-Explain WHY these customers were selected.
+Revenue Bloom gives MadeThis another way to create growth:
 
-Provide three actions:
-
-“Go get it”
-
-“Change plan”
-
-“Skip”
-
-CHANGE PLAN
-
-The user can enter:
-
-“Don't offer a discount. We're premium and don't compete on price.”
-
-The system responds:
-
-“Got it. I'll protect premium positioning.”
-
-Update the recommended offer from a discount to complimentary priority scheduling.
-
-Ask:
-
-“Remember this preference?”
-
-Yes / Just this time
-
-EXECUTION
-
-After approval show MadeThis's AI team going to work:
-
-Operations
-
-Selected the 5 highest-value opportunities
-
-Marketing
-
-Created personalized follow-up
-
-Creative
-
-Prepared supporting content
-
-Email
-
-Campaign scheduled
-
-Make this feel active and satisfying.
-
-RESULTS
-
-Then show a simulated outcome:
-
-“$3,850 recovered.”
-
-5 customers contacted
-
-4 replies
-
-2 purchases
-
-Then prominently show:
-
-“What I learned”
-
-“Premium service incentives converted better than discounts for customers like these.”
-
-Then show:
-
-“We found another $6,700.”
-
-The NEXT recommendation must visibly use premium/value-added positioning rather than a discount, demonstrating that the system's behavior changed because of what it learned.
-
-DESIGN
-
-Use MadeThis.com as visual inspiration without copying it exactly.
-
-Premium.
-
-Minimal.
-
-Modern.
-
-Confident.
-
-Warm rather than overly technical.
-
-Lots of whitespace.
-
-Large typography.
-
-Beautifully restrained.
-
-Avoid generic AI imagery.
-
-Avoid excessive charts.
-
-Avoid technical jargon.
-
-The dollar amount and opportunity should be the visual hero.
-
-This is a functional hackathon prototype, so buttons should work and the user should be able to move through the entire experience.
-
-Use synthetic data only.
-
-Do not actually contact anyone or spend money.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/a63513cd-8c3f-4519-9952-0e21222fb3ef).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+**Find
