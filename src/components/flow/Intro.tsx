@@ -1,23 +1,46 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const reel = [
-  "$2,140 MORE.",
-  "$6,880 MORE.",
+  "$7,200 MORE.",
+  "$9,850 MORE.",
   "$11,350 MORE.",
+  "$14,600 MORE.",
+  "$16,900 MORE.",
   "$18,420 MORE.",
-  "$24,900 MORE.",
-  "$31,600 MORE.",
 ];
 
-const CENTER = 3;
+const TARGET = reel.length - 1;
 const ROW = 108;
+const DURATION = 2600;
 
 export function Intro({ onEnter }: { onEnter: () => void }) {
-  const [settled, setSettled] = useState(false);
+  const [pos, setPos] = useState(0);
+  const [showNext, setShowNext] = useState(false);
+  const [showCta, setShowCta] = useState(false);
+  const raf = useRef<number | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setSettled(true), 2100);
-    return () => clearTimeout(t);
+    const start = performance.now();
+    // easeOutQuint: fast start, long deceleration into the final slot
+    const ease = (t: number) => 1 - Math.pow(1 - t, 5);
+
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / DURATION, 1);
+      setPos(ease(t) * TARGET);
+      if (t < 1) {
+        raf.current = requestAnimationFrame(tick);
+      }
+    };
+    raf.current = requestAnimationFrame(tick);
+
+    const t1 = setTimeout(() => setShowNext(true), DURATION + 700);
+    const t2 = setTimeout(() => setShowCta(true), DURATION + 1100);
+
+    return () => {
+      if (raf.current) cancelAnimationFrame(raf.current);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   return (
@@ -46,24 +69,23 @@ export function Intro({ onEnter }: { onEnter: () => void }) {
       >
         <div
           className="absolute left-0 right-0 top-0"
-          style={{
-            transform: `translateY(${ROW - (settled ? CENTER : 0) * ROW}px)`,
-            transition: "transform 1.8s cubic-bezier(0.12, 0.9, 0.16, 1)",
-          }}
+          style={{ transform: `translateY(${ROW - pos * ROW}px)`, willChange: "transform" }}
         >
           {reel.map((value, i) => {
-            const distance = Math.abs(i - CENTER);
-            const active = settled && distance === 0;
+            const d = Math.min(Math.abs(i - pos), 2.4);
+            const opacity = Math.max(0.08, 1 - d * 0.62);
+            const scale = 1 - d * 0.42;
             return (
               <div
                 key={value}
                 className="flex items-center justify-center font-display text-money"
                 style={{
                   height: ROW,
-                  fontSize: active ? "clamp(2.6rem,9vw,5.6rem)" : "clamp(1.5rem,5vw,3rem)",
-                  opacity: settled ? (distance === 0 ? 1 : distance === 1 ? 0.28 : 0.12) : 0.4,
-                  filter: active ? "none" : "blur(1.2px)",
-                  transition: "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
+                  fontSize: "clamp(2.6rem,9vw,5.6rem)",
+                  opacity,
+                  transform: `scale(${Math.max(scale, 0.35)})`,
+                  filter: d < 0.08 ? "none" : `blur(${Math.min(d * 1.6, 3)}px)`,
+                  willChange: "transform, opacity",
                 }}
               >
                 {value}
@@ -73,20 +95,25 @@ export function Intro({ onEnter }: { onEnter: () => void }) {
         </div>
       </div>
 
-      <div
-        className="flex flex-col items-center transition-all duration-700"
-        style={{
-          opacity: settled ? 1 : 0,
-          transform: settled ? "none" : "translateY(14px)",
-          transitionDelay: "1.5s",
-        }}
-      >
-        <p className="text-xl uppercase tracking-[0.16em] text-muted-foreground sm:text-2xl">
+      <div className="flex flex-col items-center">
+        <p
+          className="text-xl uppercase tracking-[0.16em] text-muted-foreground transition-all duration-700 sm:text-2xl"
+          style={{
+            opacity: showNext ? 1 : 0,
+            transform: showNext ? "none" : "translateY(14px)",
+          }}
+        >
           What should we make next?
         </p>
         <button
           onClick={onEnter}
-          className="mt-10 rounded-full bg-primary px-10 py-4 text-lg font-medium uppercase tracking-[0.12em] text-primary-foreground transition-transform hover:scale-[1.03]"
+          aria-hidden={!showCta}
+          className="mt-10 rounded-full bg-primary px-10 py-4 text-lg font-medium uppercase tracking-[0.12em] text-primary-foreground transition-all duration-700 hover:scale-[1.03]"
+          style={{
+            opacity: showCta ? 1 : 0,
+            transform: showCta ? "none" : "translateY(14px)",
+            pointerEvents: showCta ? "auto" : "none",
+          }}
         >
           Show me →
         </button>
