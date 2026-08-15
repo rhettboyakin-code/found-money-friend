@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Intro } from "@/components/flow/Intro";
 import { Home } from "@/components/flow/Home";
 import { Opportunity } from "@/components/flow/Opportunity";
 import { Execution } from "@/components/flow/Execution";
