@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Intro } from "@/components/flow/Intro";
 import { Home } from "@/components/flow/Home";
 import { Opportunity } from "@/components/flow/Opportunity";
@@ -35,6 +35,10 @@ function Index() {
   const [step, setStep] = useState<Step>("intro");
   const [premiumPreference, setPremiumPreference] = useState(false);
   const [remembered, setRemembered] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [step]);
 
   if (step === "intro") {
     return (
