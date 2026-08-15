@@ -7,9 +7,11 @@ const stats = [
 export function Results({
   remembered,
   onRestart,
+  onGo,
 }: {
   remembered: boolean;
   onRestart: () => void;
+  onGo: () => void;
 }) {
   return (
     <section className="mx-auto max-w-3xl px-6 pb-28">
@@ -65,7 +67,10 @@ export function Results({
           </div>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <button className="rounded-full bg-primary px-9 py-4 text-lg font-medium text-primary-foreground transition-transform hover:scale-[1.03]">
+          <button
+            onClick={onGo}
+            className="rounded-full bg-primary px-9 py-4 text-lg font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
+          >
             Go get it
           </button>
           <button
