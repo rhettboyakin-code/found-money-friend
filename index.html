@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>MadeThis · Revenue Bloom</title>
+<style>
+  :root{--cream:#F8F4EB;--ink:#301E12;--taupe:#776C62;--orange:#EB6F25;--green:#2D853C;--sage:#BED2BC;--line:#E0D8CC}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,system-ui,sans-serif;line-height:1.45}
+  h1,h2,h3,.serif{font-family:Georgia,Times,serif}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 20px 96px}
+  .logo{display:flex;align-items:center;gap:8px;justify-content:center;letter-spacing:.18em;font-size:12px;font-weight:700}
+  .star{color:var(--green);font-size:16px}
+  .btn{display:block;width:100%;border:0;border-radius:999px;padding:16px 18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+  .btn-ink{background:var(--ink);color:#fff}
+  .btn-outline{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn:disabled,.blocked{opacity:.55;text-decoration:line-through}
+  .money{color:var(--green)}
+  .muted{color:var(--taupe)}
+  .tiny{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+  .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0}
+  header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+  .stepper{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+  .step{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--taupe)}
+  .step.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:11px;letter-spacing:.12em}
+  .footer{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:12px 16px;text-align:center}
+  .footer b{color:var(--orange)}
+  a.link{color:var(--ink);font-size:12px}
+  .rec{background:rgba(190,210,188,.4);border:1px solid rgba(45,133,60,.3);border-radius:22px;padding:18px;margin:16px 0}
+  .center{text-align:center}
+  .rule{width:64px;height:1px;background:var(--orange);margin:20px auto}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="footer"><b>MADETHIS</b> finds the next opportunity. You make it more.</div>
+<script>
+const STEPS=["FIND","RECOMMEND","ACT","LEARN","FIND AGAIN"];
+const seed = () => ({
+  recovered:0, round:1, phase:"FIND", screen:"landing", current:null,
+  prefs:["NO DISCOUNTS"],
+  opps:[
+    {id:"rivera",type:"Stale estimate",customer:"Elena Rivera",site:"1842 Gray Fox Ct, Arvada",value:6850,age:"Estimate sent August 13 · 19 days quiet",story:"Complete 4-ton heat pump changeout. The estimate went out. Nobody called back. The number is still good.",why:"Shoulder season is closing. If this sits another week it becomes a spring job.",unlock:1,status:"open",missing:null},
+    {id:"patel",type:"Stale estimate",customer:"Amit & Priya Patel",site:"9010 Alkire St, Arvada",value:3480,age:"Estimate sent August 8 · 24 days quiet",story:"80% furnace in a tight attic, plus a humidifier they asked to price. They were waiting on a date, not a cheaper number.",why:"Nights are already in the 40s. This is a this-week install if someone offers a morning slot.",unlock:1,status:"open",missing:null},
+    {id:"brookside",type:"Incomplete quote",customer:"Brookside Café",site:"55th & Sheridan, Arvada",value:4280,age:"Draft started August 22 · missing after-hours labor",story:"Walk-in cooler repair plus rooftop changeout. After-hours labor never got a line, so the quote is unsendable.",why:"Owner asked twice. Finish the labor line and send a firm number.",unlock:1,status:"open",missing:"After-hours labor and Saturday startup"},
+    {id:"pm",type:"Overdue tune-up",customer:"Fall PM cluster",site:"Arvada / Westminster route",value:2640,age:"Last PM April · fall window opened August 11",story:"Eight light-commercial accounts. Fall preventative maintenance was never booked. $330 each.",why:"First cold snap turns these into emergencies.",unlock:1,status:"open",missing:null},
+    {id:"harper",type:"Overdue tune-up",customer:"Jordan Harper",site:"Two units · 118th & Benton",value:420,age:"Two filter-and-tune visits due August 16",story:"Landlord account. Two systems, two overdue visits at $210.",why:"Small money, easy yes, and it keeps a landlord who sends three houses a year.",unlock:1,status:"open",missing:null},
+    {id:"lakeshore",type:"Incomplete quote",customer:"Lakeshore Inn",site:"Two RTUs · 64th & Sheridan",value:3900,age:"Equipment priced · startup never added",story:"Two rooftops quoted without startup, commissioning, or year-one PM. Revenue Bloom held this until it learned how Northgate follows up.",why:"A complete, firm quote — no discount — is the move.",unlock:2,status:"open",missing:"Startup, commissioning, and year-one PM"}
+  ]
+});
+let S = seed();
+const money = n => "$" + n.toLocaleString("en-US");
+const sitting = () => S.opps.filter(o=>o.unlock<=S.round && o.status==="open").reduce((a,o)=>a+o.value,0);
+const visible = () => S.opps.filter(o=>o.unlock<=S.round && o.status==="open");
+function go(screen, extra={}){ Object.assign(S, extra, {screen}); render(); window.scrollTo(0,0); }
+
+function header(){
+  return `<header class="top">
+    <div>
+      <div class="logo" style="justify-content:flex-start"><span class="star">✱</span> MADETHIS</div>
+      <div class="tiny muted" style="margin-top:6px">Northgate HVAC · Arvada, Colorado</div>
+      <h2 class="serif" style="margin:8px 0 0;font-size:28px"><span class="money">${money(sitting())}</span> still sitting</h2>
+    </div>
+    <div style="text-align:right">
+      <div class="tiny muted">Recovered</div>
+      <div class="money serif" style="font-size:22px">${money(S.recovered)}</div>
+      <a class="link" href="#" onclick="S=seed();go('landing');return false">Reset demo</a>
+    </div>
+  </header>
+  <div class="tiny muted">Revenue Bloom · round ${S.round}</div>
+  <div class="stepper">${STEPS.map(s=>`<span class="step ${s===S.phase?'on':''}">${s}</span>`).join("")}</div>
+  <span class="badge">• ${S.prefs.join(" · ")}</span>`;
+}
+
+function landing(){
+  return `<div class="wrap center" style="padding-top:48px">
+    <div class="logo"><span class="star">✱</span> MADETHIS</div>
+    <h1 class="serif" style="font-size:42px;line-height:1.15;margin:48px 0 0">There’s <span class="money">money</span> hiding in your business.</h1>
+    <div class="rule"></div>
+    <button class="btn btn-ink" onclick="go('find',{phase:'FIND'})">Go get it.</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-outline" onclick="go('find',{phase:'FIND'})">Enter demo as Northgate HVAC</button>
+    <p class="muted" style="margin-top:18px;font-size:14px">One tap. No login. Fake HVAC shop in Arvada — stale estimates, overdue tune-ups, incomplete quotes. Whiteboard rule: <b>NO DISCOUNTS</b>.</p>
+    <p class="serif" style="font-size:20px;margin-top:28px">MadeThis finds the next opportunity. You make it more.</p>
+    <p class="tiny muted">Revenue Bloom · Find → Recommend → Act → Learn → Find again</p>
+  </div>`;
+}
+
+function find(){
+  const n = visible().length;
+  return `<div class="wrap">${header()}
+    <h1 class="serif" style="font-size:36px;margin-top:28px">${n} places money is sitting.</h1>
+    <p class="muted">Reading Northgate’s local book. Estimates sitting quiet. Quotes missing a line. Tune-ups past the window. Honoring NO DISCOUNTS.</p>
+    <p class="serif money" style="font-size:40px">${money(sitting())}</p>
+    <button class="btn btn-ink" onclick="go('feed',{phase:'RECOMMEND'})">Show me</button>
+  </div>`;
+}
+
+function feed(){
+  return `<div class="wrap">${header()}
+    <p class="tiny" style="color:var(--orange);margin-top:22px">Recommend</p>
+    <h1 class="serif" style="font-size:36px;margin:8px 0">The next money.</h1>
+    <p class="muted">Ranked from Northgate’s book. Not a dashboard — pick one and act. NO DISCOUNTS is on: recommendations hold the price.</p>
+    ${visible().map((o,i)=>`<div class="card">
+      <div style="display:flex;justify-content:space-between;gap:8px">
+        <div class="tiny muted">${String(i+1).padStart(2,"0")} · ${o.type}</div>
+        <div class="serif money" style="font-size:24px">${money(o.value)}</div>
+      </div>
+      <h3 class="serif" style="margin:8px 0 4px;font-size:24px">${o.customer}</h3>
+      <p class="muted" style="margin:0">${o.site}</p>
+      <p style="margin:10px 0 4px">${o.unlock===2?"Send a complete firm quote. No discount.":"Send a price-hold follow-up today."}</p>
+      <p class="muted" style="font-size:13px">${o.age}</p>
+      <button class="btn btn-ink" style="margin-top:12px" onclick="go('detail',{current:'${o.id}',phase:'ACT'})">Act on this</button>
+    </div>`).join("")}
+    <p style="margin-top:20px"><a class="link" href="#" onclick="go('outcomes');return false">We MadeThis →</a></p>
+  </div>`;
+}
+
+function detail(){
+  const o = S.opps.find(x=>x.id===S.current);
+  if(!o) return feed();
+  const rec = o.missing ? `Finish the missing line and send a firm number. Do not discount.` : `Hold the price. Offer a calendar, not 10% off.`;
+  return `<div class="wrap">${header()}
+    <p class="tiny" style="color:var(--orange);margin-top:18px">Act · ${o.type}</p>
+    <h1 class="serif" style="font-size:36px;margin:8px 0 0">${o.customer}</h1>
+    <p class="muted">${o.site}</p>
+    <p class="serif money" style="font-size:44px;margin:12px 0 0">${money(o.value)}</p>
+    <p class="muted">${o.age}</p>
+    <div class="card"><div class="tiny muted">Why this is sitting</div><p>${o.story}</p><p class="muted">${o.why}</p>${o.missing?`<p><b>Missing:</b> ${o.missing}</p>`:""}</div>
+    <div class="rec"><div class="tiny" style="color:var(--green)">Revenue Bloom recommends</div><h2 class="serif" style="margin:8px 0">${rec}</h2><span class="badge">• NO DISCOUNTS</span></div>
+    <h2 class="serif">Take one action</h2>
+    <p class="muted">This is the ACT step. One move. Then we learn.</p>
+    <div class="card blocked"><div>Send 10% off to close it</div><div class="tiny" style="color:var(--orange);text-decoration:none">Blocked · NO DISCOUNTS</div></div>
+    <button class="btn btn-ink" onclick="act('${o.id}','hold')">Send a price-hold follow-up</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-outline" onclick="act('${o.id}','slot')">Offer a morning slot</button>
+  </div>`;
+}
+
+function act(id, kind){
+  const o = S.opps.find(x=>x.id===id);
+  if(!o || o.status!=="open") return;
+  o.status="won";
+  S.recovered += o.value;
+  S.last = {id, kind, value:o.value, customer:o.customer};
+  S.round = Math.max(S.round, 2);
+  go("learn", {phase:"LEARN"});
+}
+
+function learn(){
+  const L = S.last || {};
+  return `<div class="wrap">${header()}
+    <p class="tiny" style="color:var(--orange);margin-top:18px">Learn</p>
+    <h1 class="serif" style="font-size:40px;margin:8px 0">You said no discounts. It remembered.</h1>
+    <p>${L.customer} closed at full price. <span class="money serif">${money(L.value||0)}</span> recovered. The 10% off stay blocked. Next recommendations keep the number and sell the calendar.</p>
+    <div class="card"><b>That’s the loop:</b> outcome → learning → better next action.</div>
+    <button class="btn btn-ink" onclick="go('find',{phase:'FIND AGAIN'})">Find again</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-outline" onclick="go('outcomes')">We MadeThis</button>
+  </div>`;
+}
+
+function outcomes(){
+  const won = S.opps.filter(o=>o.status==="won");
+  return `<div class="wrap">${header()}
+    <p class="tiny" style="color:var(--orange);margin-top:18px">We MadeThis</p>
+    <h1 class="serif" style="font-size:40px;margin:8px 0">We MadeThis ${money(S.recovered)} more.</h1>
+    <p class="muted">Different jobs. Same kind of more — money that was already in the book.</p>
+    ${won.map(o=>`<div class="card" style="display:flex;justify-content:space-between"><span>${o.customer}</span><span class="money serif">${money(o.value)}</span></div>`).join("") || `<p class="muted">Act on an opportunity to see recovered dollars land here.</p>`}
+    <button class="btn btn-ink" onclick="go('feed',{phase:'RECOMMEND'})">Back to the book</button>
+  </div>`;
+}
+
+function render(){
+  const map = {landing, find, feed, detail, learn, outcomes};
+  document.getElementById("app").innerHTML = (map[S.screen]||landing)();
+}
+render();
+</script>
+</body>
+</html>
