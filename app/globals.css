@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #f4efe6;
+  --ink: #1a1612;
+  --taupe: #776c62;
+  --orange: #c45c26;
+  --green: #2d853c;
+  --sage: #bed2bc;
+  --line: #e0d8cc;
+}
+
+html,
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: system-ui, Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-headline {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+::selection {
+  background: #bed2bc;
+  color: #1a1612;
+}
+
+.dot-wave {
+  background-image: radial-gradient(#bed2bc 1.15px, transparent 1.2px);
+  background-size: 9px 9px;
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 120%, #000 40%, transparent 72%);
+  mask-image: radial-gradient(120% 90% at 50% 120%, #000 40%, transparent 72%);
+}
+
+.btn-ink {
+  @apply inline-flex items-center justify-center rounded-full bg-ink px-8 py-3.5 text-sm font-semibold tracking-[0.14em] text-cream uppercase transition hover:bg-[#2a241c] disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center rounded-full border border-line bg-cream px-6 py-3 text-sm tracking-wide text-ink transition hover:border-ink disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.chip {
+  @apply inline-flex items-center gap-2 rounded-full border border-line bg-cream px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink;
+}
+
+.card {
+  @apply rounded-2xl border border-line bg-white/60 shadow-soft;
+}

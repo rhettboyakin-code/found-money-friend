@@ -1,82 +1,64 @@
-# Revenue Bloom
+# Revenue Bloom · Beehive & Branch
 
-### Find the opportunities your business already lost — and win them back.
+There's money hiding in your business. Go get it.
 
-Revenue Bloom is a self-improving GTM agent built for MadeThis.
+Revenue Bloom finds the next opportunity. You make it more.
 
-Instead of helping a business find more leads, it starts with a different question:
+This is not a dashboard. It is a loop: FIND, RECOMMEND, ACT, LEARN, FIND AGAIN.
 
-**What opportunities are already hiding inside this business?**
+**Beehive & Branch LLC** · rhett@beehivebranch.com
 
-Revenue Bloom continuously looks across existing business signals, identifies missed revenue opportunities, recommends the next best action, helps execute it, measures what happens, learns from the result, and goes looking for the next opportunity.
+Local Next.js App Router, TypeScript, Tailwind. Seeded JSON. Zero API keys.
 
-## The idea
+## How to run
 
-Businesses spend enormous amounts of time and money finding new customers while revenue they've already created quietly disappears.
+```bash
+npm install
+npm run seed    # or: npm run reset
+npm run dev     # http://localhost:3000
+npm run build   # production build
+```
 
-An estimate that never got followed up.
+Seed and reset scripts copy the Northgate JSON into the live store. `postinstall` seeds automatically.
 
-A past customer ready to return.
+## Pitch demo click-path
 
-An abandoned purchase.
+1. Landing. Cream, Georgia headline, GO GET IT. Beehive & Branch in the footer.
+2. Click **Enter demo as Northgate HVAC** (or GO GET IT). No OAuth. Header shows Northgate HVAC prominently.
+3. FIND reads the local book: stale estimates, overdue tune-ups, incomplete quotes.
+4. SHOW ME opens the ranked feed. About $17,670 sitting in round 1 (range $7k to $25k). Round 2 can surface Lakeshore Inn for $21,570 found.
+5. Open the top card, usually Elena Rivera, $6,850 stale heat-pump estimate.
+6. Owner preference **NO DISCOUNTS**. The 10 percent off action is blocked.
+7. ACT: send a price-hold follow-up or offer a morning slot.
+8. LEARN: Closed at full price recovers $6,850. They asked for a discount, we held, confirms the preference with $0 this turn.
+9. Loop page shows the new rule. FIND AGAIN re-ranks remaining work. Lakeshore Inn $3,900 can appear. Recs still honor NO DISCOUNTS and may add MORNING CALLS or FIRM FOLLOW-UPS.
+10. **/outcomes** shows recovered dollars.
 
-A customer ready for an upgrade.
+Reset demo from the header, or run `npm run reset`.
 
-Revenue Bloom finds those opportunities and turns them into action.
+## Screens and routes
 
-**FIND → RECOMMEND → APPROVE → ACT → MEASURE → LEARN → REPEAT**
+- `/` landing, Revenue Bloom pitch, Northgate demo entry, disabled Jobber and ServiceTitan
+- `/find` FIND and FIND AGAIN sequence
+- `/opportunities` ranked opportunity feed (RECOMMEND)
+- `/opportunities/[id]` detail plus ACT, blocked discount
+- `/learn/[id]` LEARN, outcome that changes later recs
+- `/loop` visible loop state, preferences, event log
+- `/outcomes` recovered dollars
 
-## The demo
+## Northgate HVAC seed
 
-Our prototype follows Northgate HVAC, a fictional premium home-services company.
+Arvada, Colorado. Dale's rule on the whiteboard: NO DISCOUNTS.
 
-Revenue Bloom discovers **$18,420 in potential revenue** already hiding inside the business.
+- Rivera 4-ton heat pump, stale estimate, $6,850
+- Brookside Cafe cooler plus RTU, incomplete quote, $4,280
+- 8 commercial fall PMs, overdue tune-up, $2,640
+- Patel attic furnace, stale estimate, $3,480
+- Harper duplex, overdue tune-up, $420
+- Lakeshore Inn RTUs (round 2), incomplete quote, $3,900
 
-It identifies multiple opportunities and recommends starting with 11 forgotten estimates worth $7,200.
+Jobber and ServiceTitan are visible stubs only. The demo reads `data/db.json`.
 
-But it doesn't just surface the opportunity.
+## Stack
 
-It recommends which customers to contact first, explains why they were selected, estimates the potential return, and proposes an offer.
-
-The owner can approve the recommendation, change it, or skip it.
-
-## The self-improving loop
-
-In our demo, Revenue Bloom initially recommends a discount.
-
-The owner rejects that approach and tells the agent to protect the company's premium positioning.
-
-Revenue Bloom changes the offer to complimentary priority scheduling and asks whether it should remember that preference.
-
-The owner says yes.
-
-The agent then uses that learning in its next recommendation — replacing discounting with a premium service benefit.
-
-**The feedback doesn't just get stored. It changes what the agent does next.**
-
-## Human control + autonomy
-
-Revenue Bloom is designed to act with permission, not around it.
-
-The prototype demonstrates:
-
-- A clear recommended action
-- The evidence behind the recommendation
-- Expected business impact
-- Owner approval, editing, or rejection
-- Persistent preference learning
-- Simulated execution
-- Observable results
-- A next action informed by what the agent learned
-
-Higher-risk or irreversible actions can remain approval-gated while routine actions can eventually operate within owner-defined guardrails.
-
-## Why MadeThis
-
-Most AI GTM tools help businesses generate more.
-
-More leads. More emails. More campaigns. More content.
-
-Revenue Bloom gives MadeThis another way to create growth:
-
-**Find
+Next.js 14 App Router, React 18, TypeScript. Tailwind tokens: cream F4EFE6, ink 1A1612, taupe 776C62, amber/orange C45C26, green 2D853C, sage BED2BC, line E0D8CC. Headlines Georgia. UI system-ui / Arial. Engine `lib/engine.ts`. Store `lib/store.ts`.
