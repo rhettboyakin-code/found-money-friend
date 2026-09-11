@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Revenue Bloom · Beehive & Branch",
   description: "There's money hiding in your business.",
-  icons: { icon: "/beehive-mark.svg" },
+  icons: { icon: "/beehive-mark.png" },
   openGraph: {
     title: "Revenue Bloom · Beehive & Branch",
     description: "There's money hiding in your business. Go get it.",
