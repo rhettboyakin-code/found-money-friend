@@ -4,13 +4,13 @@ import "./globals.css";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "MadeThis · Revenue Bloom",
-  description: "There’s money hiding in your business. Go get it.",
-  icons: { icon: "/madethis-close.png" },
+  title: "Revenue Bloom · Beehive & Branch",
+  description: "There's money hiding in your business.",
+  icons: { icon: "/beehive-mark.svg" },
   openGraph: {
-    title: "MadeThis · Revenue Bloom",
-    description: "MadeThis finds the next opportunity. You make it more.",
-    images: ["/madethis-close.png"],
+    title: "Revenue Bloom · Beehive & Branch",
+    description: "There's money hiding in your business. Go get it.",
+    images: [],
   },
 };
 

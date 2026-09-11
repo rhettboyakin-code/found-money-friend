@@ -55,7 +55,7 @@ export default function OpportunitiesPage() {
           <p className="mt-10 text-taupe">
             Nothing open in this round. See{" "}
             <a className="text-ink underline" href="/outcomes">
-              We MadeThis
+              Outcomes
             </a>{" "}
             · {money(state.recoveredTotal)} recovered.
           </p>

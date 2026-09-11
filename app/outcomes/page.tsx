@@ -16,7 +16,7 @@ export default function OutcomesPage() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-orange">
           Northgate HVAC
         </p>
-        <h1 className="mt-3 font-headline text-5xl text-ink sm:text-6xl">We MadeThis</h1>
+        <h1 className="mt-3 font-headline text-5xl text-ink sm:text-6xl">Outcomes</h1>
         <p className="mt-4 max-w-xl text-taupe">
           Money that was sitting in the book — stale estimates, overdue tune-ups,
           incomplete quotes — and then was not.
@@ -54,7 +54,7 @@ export default function OutcomesPage() {
         ) : (
           <div className="card mt-10 p-8 text-center">
             <p className="font-headline text-2xl text-ink">Nothing recovered yet.</p>
-            <p className="mt-2 text-taupe">There is money hiding. Go get it.</p>
+            <p className="mt-2 text-taupe">There&apos;s money hiding. Go get it.</p>
             <p className="mt-6">
               <a href="/opportunities" className="btn-ink">
                 Open the list
@@ -64,7 +64,7 @@ export default function OutcomesPage() {
         )}
 
         <p className="mt-12 text-center text-sm text-taupe">
-          MadeThis finds the next opportunity. You make it more.
+          Revenue Bloom finds the next opportunity. You make it more.
         </p>
       </main>
       <TagFooter />

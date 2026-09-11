@@ -2,7 +2,7 @@
   "name": "found-money-friend",
   "version": "1.0.0",
   "private": true,
-  "description": "MadeThis Revenue Bloom - find the money hiding in the book.",
+  "description": "Revenue Bloom by Beehive & Branch \u2014 find the money hiding in the book.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

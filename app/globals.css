@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --cream: #f8f4eb;
-  --ink: #301e12;
+  --cream: #f4efe6;
+  --ink: #1a1612;
   --taupe: #776c62;
-  --orange: #eb6f25;
+  --orange: #c45c26;
   --green: #2d853c;
   --sage: #bed2bc;
   --line: #e0d8cc;
@@ -29,7 +29,7 @@ h4,
 
 ::selection {
   background: #bed2bc;
-  color: #301e12;
+  color: #1a1612;
 }
 
 .dot-wave {
@@ -40,7 +40,7 @@ h4,
 }
 
 .btn-ink {
-  @apply inline-flex items-center justify-center rounded-full bg-ink px-8 py-3.5 text-sm font-semibold tracking-[0.14em] text-cream uppercase transition hover:bg-[#432a1c] disabled:cursor-not-allowed disabled:opacity-40;
+  @apply inline-flex items-center justify-center rounded-full bg-ink px-8 py-3.5 text-sm font-semibold tracking-[0.14em] text-cream uppercase transition hover:bg-[#2a241c] disabled:cursor-not-allowed disabled:opacity-40;
 }
 
 .btn-outline {

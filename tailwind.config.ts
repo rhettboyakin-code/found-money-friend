@@ -9,10 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#F8F4EB",
-        ink: "#301E12",
+        cream: "#F4EFE6",
+        ink: "#1A1612",
         taupe: "#776C62",
-        orange: "#EB6F25",
+        orange: "#C45C26",
         green: "#2D853C",
         sage: "#BED2BC",
         line: "#E0D8CC",
@@ -22,7 +22,7 @@ const config: Config = {
         ui: ['system-ui', 'Arial', 'Helvetica', 'sans-serif'],
       },
       boxShadow: {
-        soft: "0 18px 40px rgba(48, 30, 18, 0.08)",
+        soft: "0 18px 40px rgba(26, 22, 18, 0.08)",
       },
     },
   },

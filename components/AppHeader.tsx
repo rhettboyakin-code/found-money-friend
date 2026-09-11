@@ -11,7 +11,12 @@ export function AppHeader({ state }: { state: AppState }) {
     <header className="border-b border-line bg-cream/90 backdrop-blur">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-5 py-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <Logo compact />
+          <div className="flex flex-col gap-1">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-orange">
+              {state.demo.companyName}
+            </p>
+            <Logo compact />
+          </div>
           <nav className="flex flex-wrap items-center gap-4 text-sm text-taupe">
             <a href="/opportunities" className="hover:text-ink">
               Opportunities
@@ -20,7 +25,7 @@ export function AppHeader({ state }: { state: AppState }) {
               Loop
             </a>
             <a href="/outcomes" className="hover:text-ink">
-              We MadeThis
+              Outcomes
             </a>
             <form action={resetDemoAction}>
               <button type="submit" className="text-xs uppercase tracking-[0.14em] hover:text-ink">
@@ -32,7 +37,7 @@ export function AppHeader({ state }: { state: AppState }) {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-taupe">
-              {state.demo.companyName} · {state.demo.city}
+              Demo client · {state.demo.city}
             </p>
             <p className="font-headline text-2xl text-ink">
               {money(openTotal(state))} still sitting
@@ -53,9 +58,16 @@ export function AppHeader({ state }: { state: AppState }) {
 export function TagFooter() {
   return (
     <footer className="mt-auto bg-ink">
-      <p className="px-5 py-4 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-cream">
-        <span className="text-orange">MadeThis</span> finds the next opportunity. You make it more.
-      </p>
+      <div className="px-5 py-5 text-center">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-cream">
+          <span className="text-orange">Beehive &amp; Branch</span>
+          {" · "}
+          There&apos;s money hiding in your business.
+        </p>
+        <p className="mt-2 text-[10px] tracking-wide text-cream/70">
+          Beehive &amp; Branch LLC · rhett@beehivebranch.com · Revenue Bloom
+        </p>
+      </div>
     </footer>
   );
 }
